@@ -1,0 +1,9 @@
+# Ignore settings
+.DS_Store
+
+.idea/
+
+refactoring_220812/version2/__pycache__/
+
+
+refactoring_220812/version4/__pycache__/
