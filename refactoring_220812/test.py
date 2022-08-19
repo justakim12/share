@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from refactoring_220812.version4.main import activate
+from refactoring_220812.version1.main import activate
 
 
 class RefactorTest(TestCase):
