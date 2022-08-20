@@ -7,3 +7,6 @@ def activate(region, env):
     region_timezone, city_name, threshold = define_properties(region, env)
     threshold = threshold + 10
     return region_timezone, city_name, threshold
+
+def test_pre_commit_wily():
+    print('testing out pre-commit-wily')
