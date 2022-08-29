@@ -17,7 +17,7 @@ def define_properties(region, env):
             region_timezone = "JST"
             city_name = "Tokyo"
             threshold = 20
-    elif region == "usa":
+    elif region == "us":
         if env == "qa":
             region_timezone = "PST"
             city_name = "San Francisco"

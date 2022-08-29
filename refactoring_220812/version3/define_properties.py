@@ -20,7 +20,7 @@ def define_properties(region, env):
                   "city_name": "Tokyo",
                   "threshold": 20},
              },
-        "usa":
+        "us":
             {"qa":
                  {"region_timezone": "PST",
                   "city_name": "San Francisco",
