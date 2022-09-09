@@ -1,10 +1,11 @@
 name: Example Wily Pipeline on PR
 
 on:
-  pull_request: main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-
   evaluate-complexity:
     name: Evaluate Code complexity
     runs-on: ubuntu-latest
