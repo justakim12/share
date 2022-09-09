@@ -18,40 +18,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
       - name: Install Wily
         run: pip install wily==1.20.0
-      - name: Build cache and diff
+      - name: Build wily
         id: wily
         run: |
           wily build .
-          DIFF=$(wily diff . --no-detail -r origin/${{ github.event.pull_request.base.ref }})
-          echo "$DIFF"
-
-          # Build multine output
-          DIFF="${DIFF//'%'/'%25'}"
-          DIFF="${DIFF//$'\n'/'%0A'}"
-          DIFF="${DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=diff::$DIFF"
       - name: Show wily report
         run: |
           wily report refactoring_220812
-      - name: Show wily rank
-        run: |
-          wily rank .
-      - name: Add Wily PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: steps.findPr.outputs.number && steps.wily.outputs.diff != ''
-        with:
-          recreate: true
-          number: ${{ steps.findPr.outputs.number }}
-          message: |
-            ```
-            ${{ steps.wily.outputs.diff }}
-            ```
-      - name: Add Wily PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: steps.findPr.outputs.number && steps.wily.outputs.diff == ''
-        with:
-          recreate: true
-          number: ${{ steps.findPr.outputs.number }}
-          message: |
-            ```
-            Wily: No changes in complexity detected.
