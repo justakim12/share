@@ -1,4 +1,4 @@
-name: Check code complexity with Wily
+name: Wily Test
 
 on:
   pull_request:
