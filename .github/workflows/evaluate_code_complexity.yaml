@@ -18,10 +18,18 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
       - name: Install Wily
         run: pip install wily==1.20.0
-      - name: Build Wily
+      - name: Build cache and diff
         id: wily
         run: |
           wily build .
+          DIFF=$(wily diff refactoring_220812 --no-detail -r origin/${{ github.event.pull_request.base.ref }})
+          echo "$DIFF"
+
+          # Build multine output
+          DIFF="${DIFF//'%'/'%25'}"
+          DIFF="${DIFF//$'\n'/'%0A'}"
+          DIFF="${DIFF//$'\r'/'%0D'}"
+          echo "::set-output name=diff::$DIFF"
       - name: Show Wily report
         run: |
           wily report refactoring_220812
@@ -32,11 +40,11 @@ jobs:
           recreate: true
           message: |
             ```
-            ${{ steps.wily.outputs }}
+            ${{ steps.wily.outputs.diff }}
             ```
       - name: Add Wily PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
-        if: steps.wily.outputs == ''
+        if: steps.wily.outputs.diff == ''
         with:
           recreate: true
           message: |
