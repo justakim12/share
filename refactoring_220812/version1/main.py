@@ -29,4 +29,5 @@ def activate(region, env):
             threshold = 20
 
     threshold = threshold + 10
+    threshold = threshold + 30
     return region_timezone, city_name, threshold
