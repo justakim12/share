@@ -8,7 +8,7 @@ on:
 jobs:
   evaluate-complexity:
     name: Evaluate Code complexity
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout repository
@@ -16,40 +16,16 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
-      - name: Install Wily
-        run: pip install wily==1.20.0
-      - name: Build cache and diff
-        id: wily
+      - name: Install dependencies
         run: |
-          wily build my_package/ tests/
-          DIFF=$(wily diff my_package/ tests/ --no-detail -r origin/${{ github.event.pull_request.base.ref }})
-          echo "$DIFF"
-
-          # Build multine output
-          DIFF="${DIFF//'%'/'%25'}"
-          DIFF="${DIFF//$'\n'/'%0A'}"
-          DIFF="${DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=diff::$DIFF"
-      - name: Find current PR
-        uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-      - name: Add Wily PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: steps.findPr.outputs.number && steps.wily.outputs.diff != ''
-        with:
-          recreate: true
-          number: ${{ steps.findPr.outputs.number }}
-          message: |
-            ```
-            ${{ steps.wily.outputs.diff }}
-            ```
-      - name: Add Wily PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: steps.findPr.outputs.number && steps.wily.outputs.diff == ''
-        with:
-          recreate: true
-          number: ${{ steps.findPr.outputs.number }}
-          message: |
-            ```
-            Wily: No changes in complexity detected.
-            ```
+          python -m pip install --upgrade pip
+          python -m pip install wily
+      - name: Build wily
+        run: |
+          wily build share
+      - name: Show wily report
+        run: |
+          wily report share
+      - name: Show wily rank
+        run: |
+          wily rank .
