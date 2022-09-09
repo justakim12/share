@@ -32,11 +32,11 @@ jobs:
           recreate: true
           message: |
             ```
-            ${{ steps.wily.outputs.diff }}
+            ${{ steps.wily.outputs }}
             ```
       - name: Add Wily PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
-        if: steps.wily.outputs.diff == ''
+        if: steps.wily.outputs == ''
         with:
           recreate: true
           message: |

@@ -27,8 +27,6 @@ def activate(region, env):
             region_timezone = "PST"
             city_name = "San Francisco"
             threshold = 20
-        elif env == "test":
-            threshold = 100
 
     threshold = threshold + 10
     return region_timezone, city_name, threshold
