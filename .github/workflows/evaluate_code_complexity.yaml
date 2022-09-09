@@ -22,10 +22,7 @@ jobs:
           python -m pip install wily
       - name: Build wily
         run: |
-          wily build share
+          wily build .
       - name: Show wily report
         run: |
-          wily report share
-      - name: Show wily rank
-        run: |
-          wily rank .
+          wily report .
