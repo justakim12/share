@@ -20,7 +20,7 @@ jobs:
         run: pip install wily==1.20.0
       - name: Build cache and diff
         id: wily
-        run:
+        run: |
           wily build my_package/ tests/
           DIFF=$(wily diff my_package/ tests/ --no-detail -r origin/${{ github.event.pull_request.base.ref }})
           echo "$DIFF"
@@ -39,7 +39,7 @@ jobs:
         with:
           recreate: true
           number: ${{ steps.findPr.outputs.number }}
-          message:
+          message: |
             ```
             ${{ steps.wily.outputs.diff }}
             ```
@@ -49,7 +49,7 @@ jobs:
         with:
           recreate: true
           number: ${{ steps.findPr.outputs.number }}
-          message:
+          message: |
             ```
             Wily: No changes in complexity detected.
             ```
