@@ -33,6 +33,8 @@ jobs:
       - name: Show wily report
         run: |
           wily report refactoring_220812
+          REPORT=$(wily report refactoring_220812)
+          message: REPORT
       - name: Show wily rank
         run: |
           wily rank .
