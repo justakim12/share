@@ -1,4 +1,4 @@
-name: Example Wily Pipeline on PR
+name: Check code complexity with Wily
 
 on:
   pull_request:
