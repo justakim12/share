@@ -34,6 +34,15 @@ jobs:
       - name: Show Wily report
         run: |
           wily report refactoring_220812
-      - name: Show Wily Difference
+      - name: Add Wily PR Comment
         run: |
-          wily diff refactoring_220812 --no-detail -r origin/${{ github.event.pull_request.base.ref }}
+          message: |
+            ```
+            ${{ steps.wily.outputs.diff }}
+            ```
+      - name: Add Wily PR Comment
+        run: |
+          message: |
+            ```
+            Wily: No changes in complexity detected.
+            ```
