@@ -34,3 +34,6 @@ jobs:
       - name: Show Wily report
         run: |
           wily report refactoring_220812
+      - name: Show Wily Difference
+        run: |
+          wily diff refactoring_220812 --no-detail -r origin/${{ github.event.pull_request.base.ref }}
