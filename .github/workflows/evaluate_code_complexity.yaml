@@ -34,19 +34,3 @@ jobs:
       - name: Show Wily report
         run: |
           wily report refactoring_220812
-      - name: Add Wily PR Comment
-        if: steps.wily.outputs.diff != ''
-        with:
-          recreate: true
-          message: |
-            ```
-            ${{ steps.wily.outputs.diff }}
-            ```
-      - name: Add Wily PR Comment
-        if: steps.wily.outputs.diff == ''
-        with:
-          recreate: true
-          message: |
-            ```
-            Wily: No changes in complexity detected.
-            ```
